@@ -27,6 +27,10 @@ class UserController extends Controller
     {
         return view('pages.teams');
     }
+    public function register()
+    {
+        return view('pages.register');
+    }
     /**
      * Show the form for creating a new resource.
      */

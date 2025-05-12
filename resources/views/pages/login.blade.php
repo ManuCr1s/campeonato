@@ -19,6 +19,13 @@
                                             <label>Contraseña</label>
                                             <input type="password" placeholder="Ingrese Contraseña" class="form-control">
                                         </div>
+                                        <div class="form-group">
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <a href="{{route('user.register')}}" target="_blank" rel="noopener noreferrer">Registro de Delegados</a>                                               
+                                                </label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="card-footer ml-auto mr-auto">
