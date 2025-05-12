@@ -1,40 +1,35 @@
 @extends('template.template')
 @section('container')
-<div class="wrapper wrapper-full-page">
-    <div class="full-page login-page" data-color="orange" data-image="{{asset('assets/img/full-screen-image-1.jpg')}}">
-    <!--   you can change the color of the filter page using: data-color="blue | azure | green | orange | red | purple" -->
-        <div class="content">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
-                        <form method="#" action="#">
-                        <!--   if you want to have the card without animation please remove the ".card-hidden" class   -->
-                            <div class="card card-hidden">
-                                <div class="header text-center">Campeonato Muni - Pasco</div>
-                                <div class="content">
-                                    <div class="form-group">
-                                        <label>Usuario</label>
-                                        <input type="email" placeholder="Ingrese Usuario" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Contraseña</label>
-                                        <input type="password" placeholder="Ingrese Contraseña" class="form-control">
+<div class="full-page  section-image" data-color="black" data-image="{{asset('assets/img/full-screen-image-2.jpg')}}";>
+<div class="content">
+                <div class="container">
+                    <div class="col-md-4 col-sm-6 ml-auto mr-auto">
+                        <form class="form" method="" action="">
+                            <div class="card card-login card-hidden">
+                                <div class="card-header ">
+                                    <h3 class="header text-center">Campeonato 2025</h3>
+                                </div>
+                                <div class="card-body ">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label>Usuario</label>
+                                            <input type="email" placeholder="Ingrese Usuario" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Contraseña</label>
+                                            <input type="password" placeholder="Ingrese Contraseña" class="form-control">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="footer text-center">
-                                    <button type="submit" class="btn btn-fill btn-warning btn-wd">Ingrese</button>
+                                <div class="card-footer ml-auto mr-auto">
+                                    <button type="submit" class="btn btn-warning btn-wd">Ingrese Usuario</button>
                                 </div>
                             </div>
-
                         </form>
-
                     </div>
                 </div>
-            </div>
-        </div>
-
-    </div>
-
+            
+</div>
 </div>
 @endsection
 @section('footer')

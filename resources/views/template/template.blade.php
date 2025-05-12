@@ -12,25 +12,25 @@
 
 
     <!-- Bootstrap core CSS     -->
-    <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" />
+    <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet"/>
 
     <!--  Light Bootstrap Dashboard core CSS    -->
-    <link href="{{asset('assets/css/template.css')}}" rel="stylesheet"/>
+    <link href="{{asset('assets/css/light-bootstrap-dashboard.css?v=2.0.1')}}" rel="stylesheet"/>
 
     <!--  CSS for Demo Purpose, don't include it in your project     -->
-    <link href="{{asset('assets/css/demo.css')}}" rel="stylesheet" />
+    <link href="{{asset('assets/css/demo.css')}}" rel="stylesheet"/>
 
 
     <!--     Fonts and icons     -->
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
-    <link href="{{asset('assets/css/pe-icon-7-stroke.css')}}" rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
     @yield('header')
 </head>
 <body>
 @yield('container')
 </body>
     <script src="{{asset('assets/js/jquery.min.js')}}" type="text/javascript"></script>
+    <script src="{{asset('assets/js/popper.min.js')}}" type="text/javascript"></script>
 	<script src="{{asset('assets/js/bootstrap.min.js')}}" type="text/javascript"></script>
     <script src="{{asset('assets/js/perfect-scrollbar.jquery.min.js')}}" type="text/javascript"></script>
 @yield('footer')

@@ -17,5 +17,5 @@ Route::controller(UserController::class)->group(function(){
     Route::get('/','index')->name('user.login');
     Route::get('/dashboard','main')->name('user.dashboard');
     Route::get('/player','player')->name('user.player');
-    Route::get('/teams','team')->name('user.teams');
+    Route::get('/teams','team')->name('user.team');
 });
