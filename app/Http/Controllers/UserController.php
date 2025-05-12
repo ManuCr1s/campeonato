@@ -46,12 +46,19 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        $person = User::create([
-            'dni' => $request->input('dni'),
-            'name'=> $request->input('firtsname'),
-            'lastname'=> $request->input('lastname'),
-            'password' => Hash::make($request->input('password')),
-        ]);
+        try {
+            $person = User::create([
+                'dni' => $request->input('dni'),
+                'name'=> $request->input('firtsname'),
+                'lastname'=> $request->input('lastname'),
+                'password' => Hash::make($request->input('password')),
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => "Por favor comuniquese con el administrador"
+            ]);
+        }
         return response()->json([
             'status' => true,
             'message' => "Se ingresó correctamente el usuario"

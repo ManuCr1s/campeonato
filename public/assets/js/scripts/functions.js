@@ -55,7 +55,16 @@ export function register(data,url){
             data: data.serialize(),
             success: function(respuesta) {
                 if(respuesta.status){
-                    
+                    swal({
+                        title: "¡¡¡Felicitaciones!!!",
+                        text: 'Ingrese al sistema del campeonato',
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-warning btn-fill",
+                        type: "success"                       
+                        },function() {
+                            // Esta función se ejecuta cuando el usuario hace clic en el botón
+                            window.location.href = '/login';
+                      });
                 }else{
                     swal({
                         title: "¡¡¡Upps ocurrio un Probema!!!",
