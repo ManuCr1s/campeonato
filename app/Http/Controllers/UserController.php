@@ -5,12 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Validator;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\Hash;
+
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    public $token = 'apis-token-5761.59ZzjNAOFWADmBfvLbj8DvX98Yv1FDPH';
     public function index()
     {
         return view('pages.login');
@@ -31,32 +36,26 @@ class UserController extends Controller
     {
         return view('pages.register');
     }
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         //
     }
-    private $rules = [
-        'dni' =>'required',
-        'password'=>'required'
-    ];
-    private $message =[
-        'dni.required' => ['status'=>false,'message'=>'Por ingrese Usuario'],
-        'password.required' => ['status'=>false,'message'=>'Por ingrese su Contraseña'],
-       
-    ];
+
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        $validate = Validator::make($request->all(),$this->rules,$this->message);
-        if($validate->fails()) {
-            $response = $validate->errors();
-            return response()->json($response);
-        }
+        $person = User::create([
+            'dni' => $request->input('dni'),
+            'name'=> $request->input('firtsname'),
+            'lastname'=> $request->input('lastname'),
+            'password' => Hash::make($request->input('password')),
+        ]);
+        return response()->json([
+            'status' => true,
+            'message' => "Se ingresó correctamente el usuario"
+        ]);
     }
 
     /**
@@ -67,6 +66,52 @@ class UserController extends Controller
         //
     }
 
+    public function dni(Request $request){
+        $register = User::where('dni', $request->input('dni'))->exists();
+        if($register){
+            return response()->json([
+                'status' => false,
+                'message' => "Ya se ingreso otro delegado con ese DNI"
+            ]);
+        }else{
+            $curl = curl_init();
+            // Buscar dni
+            curl_setopt_array($curl, array(
+            // para user api versión 2
+            CURLOPT_URL => 'https://api.apis.net.pe/v2/reniec/dni?numero=' . $request->input('dni'),
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_SSL_VERIFYPEER => 0,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 2,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => array(
+                'Referer: https://apis.net.pe/consulta-dni-api',
+                'Authorization: Bearer ' . $this->token
+            ),
+            ));
+            $response = curl_exec($curl);
+            curl_close($curl);
+            $person = json_decode($response);       
+            if($person == null){
+                $person = array('status'=>false,'message'=>'Por favor verifique su conexion a internet');
+            }else if(property_exists($person,'nombres')){
+                $person->status = true;
+            }else if($person->message == 'dni no valido'){
+                $person->status = true;
+                $person->apellidoPaterno = '';
+                $person->apellidoMaterno = '';
+                $person->message = 'Por favor verifique su DNI y registre su nombre y apellido';
+            }else if($person->message == 'not found'){
+                $person->status = true;
+                $person->apellidoPaterno = '';
+                $person->apellidoMaterno = '';
+                $person->message = 'Por favor ingrese sus nombres y apellidos';
+            }
+            return response()->json($person);
+        }
+    }
     /**
      * Show the form for editing the specified resource.
      */

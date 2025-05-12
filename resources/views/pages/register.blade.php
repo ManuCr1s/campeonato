@@ -1,7 +1,9 @@
 @extends('template.template')
+@section('header')
+<meta name="csrf-token" content="{{ csrf_token() }}">
+@endsection
 @section('container')
 <div class="wrapper wrapper-full-page">
-
         <!--   you can change the color of the filter page using: data-color="blue | azure | green | orange | red | purple" -->
         <div class="full-page register-page section-image" data-color="orange" data-image="{{asset('assets/img/bg5.jpg')}}">
             <div class="content">
@@ -34,21 +36,22 @@
                              
                                 </div>
                                 <div class="col-md-4 mr-auto">
-                                    <form method="#" action="#">
+                                    <form id="register">
                                         <div class="card card-plain">
                                             <div class="content">
-                                                <div class="form-group">
-                                                    <input type="text" placeholder="Ingrese DNI" class="form-control">
+                                                <div class="form-group d-flex has-label">
+                                                    <input type="text" placeholder="Ingrese DNI" class="form-control" name="dni" maxlength="8" id="valDni">
+                                                    <button type="button" class="btn btn-warning" id="btnDni"><i class="fa fa-search"></i></button>
                                                 </div>
                                                 <div class="form-group">
-                                                    <input type="text" placeholder="Nombres" class="form-control">
+                                                    <input type="text" placeholder="Nombres" class="form-control" name="firtsname" id="firtsname" readonly>
                                                 </div>
                                                 <div class="form-group">
-                                                    <input type="text" placeholder="Apellidos" class="form-control">
+                                                    <input type="text" placeholder="Apellidos" class="form-control" name="lastname" id="lastname" readonly>
                                                 </div>
                                     
                                                 <div class="form-group">
-                                                    <input type="password" placeholder="Password" class="form-control">
+                                                    <input type="password" placeholder="Contraseña" class="form-control" name="password" id="password">
                                                 </div>
                                              
                                             </div>
@@ -65,5 +68,9 @@
             </div>
         </div>
     </div>
+@endsection
+@section('footer')
+    <script src="{{asset('assets/js/sweetalert2.min.js')}}" type="text/javascript"></script>
+    <script src="{{asset('assets/js/scripts/register.js')}}" type="module"></script>
 @endsection
 

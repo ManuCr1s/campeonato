@@ -16,7 +16,9 @@ use App\Http\Controllers\UserController;
 Route::controller(UserController::class)->group(function(){
     Route::get('/','index')->name('user.login');
     Route::get('/login','index')->name('user.login');
-    Route::get('/register',[UserController::class,'register'])->name('user.register');
+    Route::get('/register','register')->name('user.register');
+    Route::post('/dni','dni')->name('user.dni');
+    Route::post('/send','store')->name('user.send');
 });
 
 Route::middleware('auth')->group(function(){
