@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Validator;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -32,13 +34,25 @@ class UserController extends Controller
     {
         //
     }
-
+    private $rules = [
+        'dni' =>'required',
+        'password'=>'required'
+    ];
+    private $message =[
+        'dni.required' => ['status'=>false,'message'=>'Por ingrese Usuario'],
+        'password.required' => ['status'=>false,'message'=>'Por ingrese su Contraseña'],
+       
+    ];
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
+        $validate = Validator::make($request->all(),$this->rules,$this->message);
+        if($validate->fails()) {
+            $response = $validate->errors();
+            return response()->json($response);
+        }
     }
 
     /**

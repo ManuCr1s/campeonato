@@ -15,7 +15,11 @@ use App\Http\Controllers\UserController;
 
 Route::controller(UserController::class)->group(function(){
     Route::get('/','index')->name('user.login');
-    Route::get('/dashboard','main')->name('user.dashboard');
-    Route::get('/player','player')->name('user.player');
-    Route::get('/teams','team')->name('user.team');
+    Route::get('/login','index')->name('user.login');
+});
+
+Route::middleware('auth')->group(function(){
+    Route::get('/dashboard',[UserController::class,'main'])->name('user.dashboard');
+    Route::get('/player',[UserController::class,'player'])->name('user.player');
+    Route::get('/teams',[UserController::class,'team'])->name('user.team');
 });
