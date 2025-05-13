@@ -1,3 +1,4 @@
+/*INICIO FUNCTION REGISTER*/
 export function dniSearch(dni,btn,url,name,lastname){
     btn.on('click',function(){
         if(dniValidate(dni.val())){
@@ -92,3 +93,31 @@ export function register(data,url){
         });
     });
 }
+/*FIN FUNCTION REGISTER*/
+/*INICIO FUNCTION LOGIN*/
+export function login(data,url){
+    data.on('submit',function(e){
+        e.preventDefault();
+        $.ajax({
+            headers:{'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')},
+            url: url, 
+            type: 'POST',
+            data: data.serialize(),
+            success: function(respuesta) {
+                if(respuesta.status){
+                        window.location.href = respuesta.route;
+                }else{
+                    swal({
+                        title: "¡¡¡Upps ocurrio un Probema!!!",
+                        text: respuesta.message,
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-warning btn-fill",
+                        type: "warning"                       
+                    });
+                }
+            }
+        });
+    });
+}
+
+/*FIN FUNCTION LOGIN*/

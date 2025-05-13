@@ -40,10 +40,36 @@ class UserController extends Controller
     {
         //
     }
-
+    private $rules = [
+        'email' =>'required',
+        'password'=>'required'
+    ];
+    private $message =[
+        'email.required' => ['status'=>false,'message'=>'Por ingrese Usuario'],
+        'password.required' => ['status'=>false,'message'=>'Por ingrese su Contraseña'],
+       
+    ];
     /**
      * Store a newly created resource in storage.
      */
+    public function auth(Request $request){
+        $validate = Validator::make($request->all(),$this->rules,$this->message);
+        $credenciales = [
+            'dni' => $request->input('user'),
+            'password' => $request->input('pass')
+        ];
+        if (Auth::attempt($credenciales)) {
+            $request->session()->regenerate();
+            return response()->json([
+                        'status' => true,
+                        'route' => '/dashboard',
+            ]);
+        }
+        return response()->json([
+            'status' => false,
+            'message' => "Por favor ingrese credenciales correctas"
+        ]);
+    }
     public function store(UserRequest $request)
     {
         try {
@@ -140,6 +166,9 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
     }
 }

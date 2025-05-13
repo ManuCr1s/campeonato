@@ -19,6 +19,7 @@ Route::controller(UserController::class)->group(function(){
     Route::get('/register','register')->name('user.register');
     Route::post('/dni','dni')->name('user.dni');
     Route::post('/send','store')->name('user.send');
+    Route::post('/auth','auth')->name('user.auth');
 });
 
 Route::middleware('auth')->group(function(){

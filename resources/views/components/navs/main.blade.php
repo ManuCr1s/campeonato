@@ -14,7 +14,7 @@
                     </div>
                     <div class="info ">
                         <a data-toggle="collapse" href="#collapseExample" class="collapsed">
-                            <span>User
+                            <span>{{Auth::user()->name}}
                                 <b class="caret"></b>
                             </span>
                         </a>

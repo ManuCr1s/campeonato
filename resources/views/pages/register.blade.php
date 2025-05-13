@@ -53,7 +53,7 @@
                                                 <div class="form-group">
                                                     <input type="password" placeholder="Contraseña" class="form-control" name="password" id="password">
                                                 </div>
-                                             git 
+                                             
                                             </div>
                                             <div class="footer text-center">
                                                 <button type="submit" class="btn btn-fill btn-neutral btn-wd">Crear Cuenta Delegado</button>
