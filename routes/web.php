@@ -26,4 +26,5 @@ Route::middleware('auth')->group(function(){
     Route::get('/dashboard',[UserController::class,'main'])->name('user.dashboard');
     Route::get('/player',[UserController::class,'player'])->name('user.player');
     Route::get('/teams',[UserController::class,'team'])->name('user.team');
+    Route::post('/loguot',[UserController::class,'destroy'])->name('user.logout');
 });

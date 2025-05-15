@@ -35,9 +35,10 @@
                                     <a class="dropdown-item" href="#">
                                         <i class="nc-icon nc-lock-circle-open"></i> Lock Screen
                                     </a>
-                                    <a href="#" class="dropdown-item text-danger">
-                                        <i class="nc-icon nc-button-power"></i> Log out
-                                    </a>
+                                    <form action="{{route('user.logout')}}" method="POST" class="d-flex m-2">
+										@csrf
+										<button class="btn btn-danger p-0 m-auto"> <i class="nc-icon nc-button-power"></i> Cerrar Sesion</button>
+									</form>
                                 </div>
                             </li>
                         </ul>

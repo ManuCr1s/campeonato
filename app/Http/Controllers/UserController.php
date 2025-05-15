@@ -61,8 +61,8 @@ class UserController extends Controller
         if (Auth::attempt($credenciales)) {
             $request->session()->regenerate();
             return response()->json([
-                        'status' => true,
-                        'route' => '/dashboard',
+                    'status' => true,
+                    'route' => '/dashboard'
             ]);
         }
         return response()->json([
@@ -96,7 +96,7 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        
     }
 
     public function dni(Request $request){
@@ -164,7 +164,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
         Auth::logout();
         $request->session()->invalidate();

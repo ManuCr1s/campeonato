@@ -1,7 +1,4 @@
 @extends('template.template')
-@section('header')
-<meta name="csrf-token" content="{{ csrf_token() }}">
-@endsection
 @section('container')
 <div class="full-page  section-image" data-color="black" data-image="{{asset('assets/img/full-screen-image-2.jpg')}}";>
 <div class="content">
@@ -15,6 +12,7 @@
                                 <div class="card-body ">
                                     <div class="card-body">
                                         <div class="form-group">
+                                            @csrf
                                             <label>Usuario</label>
                                             <input type="text" placeholder="Ingrese Usuario" class="form-control" name="user" id="user">
                                         </div>

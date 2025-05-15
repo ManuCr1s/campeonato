@@ -99,7 +99,6 @@ export function login(data,url){
     data.on('submit',function(e){
         e.preventDefault();
         $.ajax({
-            headers:{'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')},
             url: url, 
             type: 'POST',
             data: data.serialize(),
