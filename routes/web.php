@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\TeamController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,4 +30,6 @@ Route::middleware('auth')->group(function(){
     Route::get('/player',[UserController::class,'player'])->name('user.player');
     Route::get('/teams',[UserController::class,'team'])->name('user.team');
     Route::post('/loguot',[UserController::class,'destroy'])->name('user.logout');
+    Route::post('/teams',[TeamController::class,'store'])->name('team.show');
+    Route::post('/registert',[TeamController::class,'create'])->name('team.show');
 });

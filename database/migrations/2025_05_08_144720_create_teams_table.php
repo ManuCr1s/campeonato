@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('teams', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('id_users',8);
+            $table->foreign('id_users')->references('dni')->on('users')->onDelete('cascade');
             $table->dateTime('created_at',$precision=3);
             $table->dateTime('updated_at',$precision=3);
         });

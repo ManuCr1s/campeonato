@@ -77,6 +77,7 @@ class UserController extends Controller
                 'dni' => $request->input('dni'),
                 'name'=> $request->input('firtsname'),
                 'lastname'=> $request->input('lastname'),
+                'id_office'=> $request->input('offices'),
                 'password' => Hash::make($request->input('password')),
             ]);
         } catch (\Throwable $th) {

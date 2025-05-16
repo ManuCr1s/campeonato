@@ -49,7 +49,12 @@
                                                 <div class="form-group">
                                                     <input type="text" placeholder="Apellidos" class="form-control" name="lastname" id="lastname" readonly>
                                                 </div>
-                                    
+                                                 <div class="form-group">
+                                                    <select name="offices" id="offices" class="form-control">
+                                                        <option value="0">Seleccione</option>
+                                                        <option value="1">OSTI</option>
+                                                    </select>
+                                                </div>
                                                 <div class="form-group">
                                                     <input type="password" placeholder="Contraseña" class="form-control" name="password" id="password">
                                                 </div>

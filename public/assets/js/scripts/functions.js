@@ -120,3 +120,36 @@ export function login(data,url){
 }
 
 /*FIN FUNCTION LOGIN*/
+/*INCIO FUCNTION TEAMS */
+export function team(url,data,form,register){
+    $.ajax({
+        headers:{'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')},
+        type:'POST',
+        url:url,
+        data:{'dni':data.data('username')},
+        success: function(respuesta) {
+                if(respuesta.status === false){
+                    register.hide();
+                    form.show();
+                }else{
+                    register.show();
+                    form.hide();
+                }
+        }
+    });
+}
+export function registerTeam(form,url){
+    form.on('submit',function(e){
+        e.preventDefault();
+        $.ajax({
+            headers:{'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')},
+            type:'POST',
+            url:url,
+            data:form.serialize(),
+            success:function(response){
+                console.log(response);
+            }
+        });
+    });
+}
+/*FIN FUCNTION TEAMS */
