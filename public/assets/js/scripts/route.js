@@ -5,6 +5,7 @@ const route={
     login:`${APP_ROUTE}/auth`,
     dash:`${APP_ROUTE}/dashboard`,
     team:`${APP_ROUTE}/team`,
-    registerT:`${APP_ROUTE}/registert`,
+    registerT:`${APP_ROUTE}/teams`,
+    updateT:`${APP_ROUTE}/editTeam`,
 };  
 export default route;

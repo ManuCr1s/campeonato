@@ -20,7 +20,22 @@ class TeamController extends Controller
      */
     public function create(Request $request)
     {
-        return $request->all();
+        try {
+            $teams = Team::create([
+                'name' => $request->input('team'),
+                'id_users' => $request->input('dni')
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => "Por favor comuniquese con el administrador"
+            ]);
+        }
+        return response()->json([
+            'status' => true,
+            'message' => "Se ingresó correctamente el nombre del Equipo"
+        ]);
+      
     }
 
     /**
@@ -30,6 +45,11 @@ class TeamController extends Controller
     {
             $teams = Team::where('id_users',$request->input('dni'))->first();
             if($teams){
+                    $teams = Team::join('users as u1', 'teams.id_users', '=', 'u1.dni')
+                    ->join('offices', 'u1.id_office', '=', 'offices.id')
+                    ->select('teams.id as id_team','teams.name as team_name', 'offices.name as office_name')
+                    ->where('teams.id_users', '=', $request->input('dni'))
+                    ->get();
                     return datatables()->of($teams)->toJson();
             }else{
                     return response()->json([ 
@@ -58,9 +78,22 @@ class TeamController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        try {
+            $team = Team::find($request->input('idTeam'));
+            $team->name = $request->input('nameTeam');
+            $team->save();
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => "Por favor comuniquese con el administrador"
+            ]); 
+        }
+        return response()->json([
+            'status' => true,
+            'message' => "Se cambio correctamente el nombre del equipo"
+        ]);
     }
 
     /**

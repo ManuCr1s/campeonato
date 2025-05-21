@@ -1,6 +1,7 @@
 @extends('template.template')
 @section('header')
 <meta name="csrf-token" content="{{ csrf_token() }}">
+ <link href="{{asset('assets/css/jquery.dataTables.css')}}" rel="stylesheet"/>
 @endsection
 @section('container')
 <div class="wrapper">
@@ -18,13 +19,14 @@
                                             <h4 class="card-title">Ingrese Equipo</h4>
                                         </div>
                                         <div class="card-body">
-                                            <form id="teams">
+                                            <form id="registerTeams">
                                                 <div class="form-group">
                                                     <label>Nombre de Equipo</label>
                                                     <input type="text" placeholder="Ingrese Nombre" class="form-control" name="team">
+                                                    <input type="text" class="d-none" name="dni" value="{{Auth::user()->dni}}">
                                                 </div>                
                                         </div>
-                                        <div class="card-footer ">
+                                        <div class="card-footer">
                                             <button type="submit" class="btn btn-fill btn-warning">Registar Nombre</button>
                                         </div>
                                             </form>  
@@ -49,28 +51,17 @@
                                     <p class="card-category">Puede editar el nombre de su equipo si ya lo registro</p>
                                 </div>
                                 <div class="card-body table-full-width">
-                                    <table class="table">
+                                    <table class="table" id="tableTeam">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">#</th>
-                                                <th>Nombre de equipo</th>
-                                                <th>Gerencia</th>
-                                                <th class="text-right">Actions</th>
+                                                <th class="text-center">Nombre de equipo</th>
+                                                <th class="text-center">Gerencia</th>
+                                                <th class="text-center">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td class="text-center">1</td>
-                                                <td>Andrew Mike</td>
-                                                <td>Develop</td>
-                                                <td class="td-actions text-right">
-                                            
-                                                    <a href="#" rel="tooltip" title="Edit Profile" class="btn btn-success btn-link btn-xs">
-                                                        <i class="fa fa-edit"></i>
-                                                    </a>
-                                                
-                                                </td>
-                                            </tr>
+                    
                                          
                                         </tbody>
                                     </table>
@@ -82,8 +73,10 @@
         </div>
     </div>
 </div>
+<x-modals.teams/>
 @endsection
 @section('footer')
     <script src="{{asset('assets/js/sweetalert2.min.js')}}" type="text/javascript"></script>
+    <script src="{{asset('assets/js/jquery.datatables.min.js')}}" type="text/javascript"></script>
     <script src="{{asset('assets/js/scripts/teams.js')}}" type="module"></script>
 @endsection
