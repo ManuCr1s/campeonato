@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TeamController;
-
+use App\Http\Controllers\PlayerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,4 +33,6 @@ Route::middleware('auth')->group(function(){
     Route::post('/team',[TeamController::class,'store'])->name('team.show');
     Route::post('/teams',[TeamController::class,'create']);
     Route::post('/editTeam',[TeamController::class,'update']);
+    Route::post('/showTeam',[PlayerController::class,'show']);
+    Route::post('/dniPlayer',[PlayerController::class,'dni']);
 });

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('dni',8)->primary();
             $table->string('name');
             $table->string('lastname');
-            $table->string('age');
+            $table->dateTime('born',$precision=3);
             $table->string('photo');
             $table->string('post');
             $table->unsignedBigInteger('id_teams');

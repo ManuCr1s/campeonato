@@ -17,19 +17,19 @@
                                                         <div class="col-md-5 pr-1">
                                                             <div class="form-group">
                                                                 <label>Equipo (Desabilitado)</label>
-                                                                <input type="text" class="form-control" disabled="" placeholder="Equipo" value="Creative Code Inc.">
+                                                                <input type="text" class="form-control" disabled="" placeholder="Equipo" id="idTeamName">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-5 px-1">
                                                             <div class="form-group">
                                                                 <label>Dni</label>
-                                                                <input type="text" class="form-control" placeholder="Numero DNI">
+                                                                <input type="text" class="form-control" placeholder="Numero DNI" name="dni" id="dniPLayer">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-1 pl-1">
                                                             <div class="form-group">
                                                                 <label for="exampleInputEmail1">Buscar</label>
-                                                                <button type="button" class="btn btn-warning"><i class="fa fa-search"></i></button>
+                                                                <button type="button" class="btn btn-warning" id="btnDni"><i class="fa fa-search"></i></button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -37,27 +37,40 @@
                                                         <div class="col-md-6 pr-1">
                                                             <div class="form-group">
                                                                 <label>Nombres</label>
-                                                                <input type="text" class="form-control" placeholder="Company" value="Mike">
+                                                                <input type="text" class="form-control" placeholder="Company" name="firtsname" readonly id="firtsname">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 pl-1">
                                                             <div class="form-group">
                                                                 <label>Apellidos</label>
-                                                                <input type="text" class="form-control" placeholder="Last Name" value="Andrew">
+                                                                <input type="text" class="form-control" placeholder="Last Name" name="lastname" readonly id="lastname">
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="row">
-                                                        <div class="col-md-6 pr-1">
+                                                        <div class="col-md-4 pr-1">
                                                             <div class="form-group">
                                                                 <label>Oficina</label>
-                                                                <input type="text" class="form-control" placeholder="Company" value="Mike">
+                                                                  <select name="office" id="offices" class="form-control">
+                                                                    <option value="0">Seleccione</option>
+                                                                    <option value="1">OSTI</option>
+                                                                </select>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-6 pl-1">
+                                                         <div class="col-md-4 pl-1">
+                                                            <div class="form-group">
+                                                                <label>Fecha Nacimiento</label>
+                                                                <input type="date" class="form-control" placeholder="Last Name" value="Andrew" name="born">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4 pl-1">
                                                             <div class="form-group">
                                                                 <label>Contrato</label>
-                                                                <input type="text" class="form-control" placeholder="Last Name" value="Andrew">
+                                                                 <select name="legacy" id="offices" class="form-control">
+                                                                    <option value="0">Seleccione</option>
+                                                                    <option value="1">CAS</option>
+                                                                    <option value="2">LOCACION</option>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                     </div>                                                 

@@ -246,3 +246,30 @@ export function sendChangeTeam(url){
     });
 }
 /*FIN FUCNTION TEAMS */
+/*INCIO FUNCTIONS PLAYER */
+//SE UTILIZA LA PRIMERA FUNCION PARA BUSCAR DNI
+export function showTeam(url,data,name){
+        $.ajax({
+            headers:{'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')},
+            type:'POST',
+            url:url,
+            data:{'dni':data.data('username')},
+            success:function(response){
+                console.log(response);
+                if(!('status' in response)){
+                    name.val(response[0].team_name);                
+                }else{
+                    swal({
+                        title: "¡¡¡Upps ocurrio un Probema!!!!",
+                        text: response.message,
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-warning btn-fill",
+                        type: "warning"                       
+                        },function() {
+                                window.location.href = '/teams';
+                        });
+                }
+            }
+        });
+}
+/*FIN FUNCTIONS PLAYER */

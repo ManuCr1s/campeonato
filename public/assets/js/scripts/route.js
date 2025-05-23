@@ -7,5 +7,7 @@ const route={
     team:`${APP_ROUTE}/team`,
     registerT:`${APP_ROUTE}/teams`,
     updateT:`${APP_ROUTE}/editTeam`,
+    dniPlayer:`${APP_ROUTE}/dniPlayer`,
+    teamName:`${APP_ROUTE}/showTeam`,
 };  
 export default route;
