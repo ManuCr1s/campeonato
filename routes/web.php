@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\PlayerController;
+use App\Http\Controllers\OfficeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,7 @@ Route::controller(UserController::class)->group(function(){
     Route::post('/dni','dni')->name('user.dni');
     Route::post('/send','store')->name('user.send');
     Route::post('/auth','auth')->name('user.auth');
+    Route::post('/offices',[OfficeController::class,'show']);
 });
 
 Route::middleware('auth')->group(function(){
@@ -37,4 +39,5 @@ Route::middleware('auth')->group(function(){
     Route::post('/dniPlayer',[PlayerController::class,'dni']);
     Route::post('/sendPlayer',[PlayerController::class,'store']);
     Route::post('/showPlayer',[PlayerController::class,'player']);
+    Route::post('/deletePlayer',[PlayerController::class,'destroy']);
 });

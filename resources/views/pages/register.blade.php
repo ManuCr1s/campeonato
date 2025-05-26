@@ -51,8 +51,6 @@
                                                 </div>
                                                  <div class="form-group">
                                                     <select name="offices" id="offices" class="form-control">
-                                                        <option value="0">Seleccione</option>
-                                                        <option value="1">OSTI</option>
                                                     </select>
                                                 </div>
                                                 <div class="form-group">

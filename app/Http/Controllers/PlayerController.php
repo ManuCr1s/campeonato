@@ -157,8 +157,19 @@ class PlayerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        try {
+            $player = Player::where('dni', $request->input('dniPlayer'))->delete();
+        } catch (\Throwable $th) {
+              return response()->json([
+                    'status' => false,
+                    'message' => "Por favor comuniquese con el administrador"
+                ]);
+        }
+        return response()->json([                                                                                                                                                                          
+            'status' => true,
+            'message' => "Se elimino correctamente el jugador"
+        ]);
     }
 }

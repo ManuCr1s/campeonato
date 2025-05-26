@@ -93,6 +93,32 @@ export function register(data,url){
         });
     });
 }
+export function officesName(selec,url){
+    $.ajax({
+        headers:{'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')},
+        type:'POST',
+        url:url,
+        success: function(date){
+            let myData = JSON.parse(date);
+            let options = createOptions(myData);
+            selec.html(options);
+        }
+    });
+}
+export function createOptions(myData){
+    let fragment = document.createDocumentFragment(); 
+    let defaultOption = document.createElement('option');
+    defaultOption.value = 0;
+    defaultOption.text = 'SELECCIONE';
+    fragment.appendChild(defaultOption);
+    $.each(myData, function(index, param) {
+        let option = document.createElement('option');
+        option.value = Object.values(param)[0];
+        option.text = Object.values(param)[1].toUpperCase();
+        fragment.appendChild(option);
+    });
+    return fragment;
+}
 /*FIN FUNCTION REGISTER*/
 /*INICIO FUNCTION LOGIN*/
 export function login(data,url){
@@ -351,10 +377,10 @@ export function player(url,data,table){
                                         <button type="button" rel="tooltip" data-placement="left" title="View Post" class="btn btn-info btn-link btn-icon">
                                             <i class="fa fa-image"></i>
                                         </button>
-                                        <button type="button" rel="tooltip" data-placement="left" title="Edit Post" class="btn btn-success btn-link btn-icon">
-                                            <i class="fa fa-edit"></i>
+                                        <button type="button" rel="tooltip" data-placement="left" title="Remove Post" class="btn btn-success btn-link btn-icon ">
+                                            <i class="fa fa-edit" ></i>
                                         </button>
-                                        <button type="button" rel="tooltip" data-placement="left" title="Remove Post" class="btn btn-danger btn-link btn-icon ">
+                                        <button type="button" class="btn btn-danger btn-link btn-xs modelDeletePlayer" data-toggle="modal" data-target="#deleteModal" data-nombre="`+row.player_name+` `+row.player_lastname+`" data-id=`+row.player_dni+`>
                                             <i class="fa fa-times"></i>
                                         </button>
                                     `;
@@ -367,5 +393,43 @@ export function player(url,data,table){
         }
     });
         
+}
+export function deletePlayer(){
+    $(document).on('click', '.modelDeletePlayer', function () {
+        $('#dniPlayer').val($(this).data('id'));
+        $('#namePlayer').val($(this).data('nombre'));
+    });
+}
+export function deletePlayerTeam(url){
+    $(document).on('submit','#deletePlayer',function(e){
+        e.preventDefault();
+        $.ajax({
+            headers:{'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')},
+            type:'POST',
+            url:url,
+            data:$(this).serialize(),
+            success:function(response){
+                if(response.status){
+                    swal({
+                        title: "¡¡¡Excelente!!!",
+                        text: response.message,
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-warning btn-fill",
+                        type: "success"                       
+                    },function() {
+                            window.location.href = '/player';
+                    });
+                }else{
+                    swal({
+                        title: "¡¡¡Upps ocurrio un Probema!!!",
+                        text: response.message,
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-warning btn-fill",
+                        type: "warning"                       
+                    });
+                }
+            }
+        });
+    });
 }
 /*FIN FUNCTIONS PLAYER */

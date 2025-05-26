@@ -20,4 +20,5 @@ class Player extends Model
         'id_offices',
         'id_contracts'
     ];
+    protected $primaryKey = 'dni';
 }
