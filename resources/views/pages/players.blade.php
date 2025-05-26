@@ -25,46 +25,20 @@
                                     <x-modals.player/>
                                 </div>
                                 <div class="card-body table-full-width">
-                                    <table class="table table-bigboy">
+                                    <table class="table table-bigboy" id="tablePlayer">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">Foto</th>
-                                                <th>Nombres</th>
+                                                <th class="text-center">Dni</th>
+                                                <th class="test-center">Nombres</th>
                                                 <th class="th-description">Apellidos</th>
                                                 <th class="text-right">Fecha Nacimiento</th>
                                                 <th class="text-right">Contrato</th>
-                                                <th></th>
+                                                <th>Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>
-                                                    <div class="img-container">
-                                                        <img src="../../assets/img/blog-1.jpg" alt="...">
-                                                    </div>
-                                                </td>
-                                                <td class="td-name">
-                                                    10 Things that all designers do
-                                                </td>
-                                                <td>
-                                                    Most beautiful agenda for the office, really nice paper and black cover. Most beautiful agenda for the office.
-                                                </td>
-                                                <td class="td-number">30/08/2016</td>
-                                                <td class="td-number">
-                                                    1,225
-                                                </td>
-                                                <td class="td-actions">
-                                                    <button type="button" rel="tooltip" data-placement="left" title="View Post" class="btn btn-info btn-link btn-icon">
-                                                        <i class="fa fa-image"></i>
-                                                    </button>
-                                                    <button type="button" rel="tooltip" data-placement="left" title="Edit Post" class="btn btn-success btn-link btn-icon">
-                                                        <i class="fa fa-edit"></i>
-                                                    </button>
-                                                    <button type="button" rel="tooltip" data-placement="left" title="Remove Post" class="btn btn-danger btn-link btn-icon ">
-                                                        <i class="fa fa-times"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
+                                         
                                         </tbody>
                                     </table>
                                 </div>

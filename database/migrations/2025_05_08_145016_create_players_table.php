@@ -16,14 +16,16 @@ return new class extends Migration
             $table->string('name');
             $table->string('lastname');
             $table->dateTime('born',$precision=3);
-            $table->string('photo');
-            $table->string('post');
+            $table->string('photo')->nullable();
+            $table->boolean('status')->default(true);
+            $table->string('id_users',8);
             $table->unsignedBigInteger('id_teams');
             $table->unsignedBigInteger('id_offices'); 
             $table->unsignedBigInteger('id_contracts');
             $table->foreign('id_teams')->references('id')->on('teams')->onDelete('cascade');
             $table->foreign('id_offices')->references('id')->on('offices')->onDelete('cascade');
             $table->foreign('id_contracts')->references('id')->on('contracts')->onDelete('cascade');
+            $table->foreign('id_users')->references('dni')->on('users')->onDelete('cascade');
             $table->dateTime('created_at',$precision=3);
             $table->dateTime('updated_at',$precision=3);
         });

@@ -35,4 +35,6 @@ Route::middleware('auth')->group(function(){
     Route::post('/editTeam',[TeamController::class,'update']);
     Route::post('/showTeam',[PlayerController::class,'show']);
     Route::post('/dniPlayer',[PlayerController::class,'dni']);
+    Route::post('/sendPlayer',[PlayerController::class,'store']);
+    Route::post('/showPlayer',[PlayerController::class,'player']);
 });

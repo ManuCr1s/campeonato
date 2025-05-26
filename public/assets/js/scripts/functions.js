@@ -159,7 +159,7 @@ export function team(url,data,form,register,table){
                                 render: function (data, type, row) {
                                     return `
                                         <center>
-                                        <button id="modelTeam" type="button" class="btn btn-success btn-link btn-xs" data-toggle="modal" data-target="#exampleModal" data-nombre=`+row.team_name+` data-id=`+row.id_team+`>
+                                        <button id="modelTeam" type="button" class="btn btn-success btn-link btn-xs" data-toggle="modal" data-target="#exampleModal" data-nombre="`+row.team_name+`" data-id=`+row.id_team+`>
                                             <i class="fa fa-edit" ></i>
                                         </button>
                                         </center>
@@ -192,7 +192,7 @@ export function registerTeam(form,url){
                         confirmButtonClass: "btn btn-warning btn-fill",
                         type: "success"                       
                     },function() {
-                            window.location.href = '/login';
+                            window.location.href = '/teams';
                     });
                 }else{
                     swal({
@@ -248,16 +248,17 @@ export function sendChangeTeam(url){
 /*FIN FUCNTION TEAMS */
 /*INCIO FUNCTIONS PLAYER */
 //SE UTILIZA LA PRIMERA FUNCION PARA BUSCAR DNI
-export function showTeam(url,data,name){
+export function showTeam(url,data,name,id,dni){
         $.ajax({
             headers:{'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')},
             type:'POST',
             url:url,
             data:{'dni':data.data('username')},
             success:function(response){
-                console.log(response);
                 if(!('status' in response)){
-                    name.val(response[0].team_name);                
+                    name.val(response[0].team_name);  
+                    id.val(response[0].team_id);  
+                    dni.val(response[0].team_user)                
                 }else{
                     swal({
                         title: "¡¡¡Upps ocurrio un Probema!!!!",
@@ -271,5 +272,100 @@ export function showTeam(url,data,name){
                 }
             }
         });
+}
+export function sendDataPlayer(url){
+    $(document).on('submit','#player',function(e){
+            e.preventDefault();
+            $.ajax({
+                headers:{'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')},
+                type:'POST',
+                url:url,
+                data:$(this).serialize(),
+                success:function(response){
+                        if(response.status){
+                            swal({
+                                title: "¡¡¡Excelente!!!",
+                                text: response.message,
+                                buttonsStyling: false,
+                                confirmButtonClass: "btn btn-warning btn-fill",
+                                type: "success"                       
+                            },function() {
+                                    window.location.href = '/player';
+                            });
+                        }else{
+                            swal({
+                                title: "¡¡¡Upps ocurrio un Probema!!!",
+                                text: response.message,
+                                buttonsStyling: false,
+                                confirmButtonClass: "btn btn-warning btn-fill",
+                                type: "warning"                       
+                            });
+                        }
+                }
+            });
+    });
+}
+export function player(url,data,table){
+    $.ajax({
+        headers:{'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')},
+        type:'POST',
+        url:url,
+        data:{'dni':data.data('username')},
+        success: function(respuesta) {
+                let dataTableInstance;
+                 if(!('status' in respuesta)){
+                      if ($.fn.DataTable.isDataTable(table)) {
+                        table.DataTable().clear().destroy();
+                    }
+                        dataTableInstance = table.DataTable({
+                        data: respuesta.data,
+                        columns: [
+                            { 
+                                data: 'player_photo',
+                                class: 'text-center'
+                            },
+                            { 
+                                data: 'player_dni',
+                                class: 'text-center'
+                            },
+                            { 
+                                data: 'player_name',
+                                class: 'text-center'
+                            },
+                            { 
+                                data: 'player_lastname',
+                                class: 'text-center'
+                            },
+                            { 
+                                data: 'player_born',
+                                class: 'text-center'
+                            },
+                            { 
+                                data: 'legacy',
+                                class: 'text-center'
+                            },
+                            {
+                                data: null,
+                                render: function (data, type, row) {
+                                    return `
+                                        <button type="button" rel="tooltip" data-placement="left" title="View Post" class="btn btn-info btn-link btn-icon">
+                                            <i class="fa fa-image"></i>
+                                        </button>
+                                        <button type="button" rel="tooltip" data-placement="left" title="Edit Post" class="btn btn-success btn-link btn-icon">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                        <button type="button" rel="tooltip" data-placement="left" title="Remove Post" class="btn btn-danger btn-link btn-icon ">
+                                            <i class="fa fa-times"></i>
+                                        </button>
+                                    `;
+                                }
+                            }
+                        ]
+                    });
+                    return dataTableInstance;
+                }
+        }
+    });
+        
 }
 /*FIN FUNCTIONS PLAYER */

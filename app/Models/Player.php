@@ -13,9 +13,9 @@ class Player extends Model
         'dni',
         'name',
         'lastname',
-        'age',
+        'born',
         'photo',
-        'post',
+        'id_users',
         'id_teams',
         'id_offices',
         'id_contracts'

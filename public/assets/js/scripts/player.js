@@ -1,6 +1,8 @@
 import route from './route.js';
-import {dniSearch,showTeam} from './functions.js';
+import {dniSearch,showTeam,sendDataPlayer,player} from './functions.js';
 $(document).ready(function(){
     dniSearch($('#dniPLayer'),$('#btnDni'),route.dniPlayer,$('#firtsname'),$('#lastname'));
-    showTeam(route.teamName,$('#app'),$('#idTeamName'));
+    showTeam(route.teamName,$('#app'),$('#idTeamName'),$('#idTeam'),$('#idUser'));
+    sendDataPlayer(route.sendPlayer);
+    player(route.showPlayer,$('#app'),$('#tablePlayer'))
 });
