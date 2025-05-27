@@ -13,5 +13,6 @@ const route={
     showPlayer:`${APP_ROUTE}/showPlayer`,
     deletePlayer:`${APP_ROUTE}/deletePlayer`,
     offices:`${APP_ROUTE}/offices`,
+    teamsCount:`${APP_ROUTE}/teamsCount`,
 };  
 export default route;

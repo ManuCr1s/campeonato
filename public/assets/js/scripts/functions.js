@@ -433,3 +433,45 @@ export function deletePlayerTeam(url){
     });
 }
 /*FIN FUNCTIONS PLAYER */
+/*INCIO FUNCIONES DASH*/
+export function chartRegister(element,url){
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error en la solicitud: ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+
+        var dataViews = {
+            labels: ['Total'],
+            series: [
+                [data],
+            ]
+            };
+
+        var optionsViews = {
+            seriesBarDistance: 10,
+              axisX: {
+                  showGrid: false
+              },
+              height: "350px"
+        };
+
+        var responsiveOptionsViews = [
+            ['screen and (max-width: 640px)', {
+              seriesBarDistance: 5,
+              axisX: {
+                labelInterpolationFnc: function (value) {
+                  return value[0];
+                }
+              }
+            }]
+        ];
+
+        Chartist.Bar(element, dataViews, optionsViews, responsiveOptionsViews);
+    })
+
+}
+/*FIN FUNCIONES DAHS*/

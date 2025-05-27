@@ -103,4 +103,14 @@ class TeamController extends Controller
     {
         //
     }
+    public function teamCount()
+    {
+        $teams = Team::count();
+        /*
+         $teams = Team::select('name','created as fecha')->groupBy('created_at')
+        ->selectRaw('count(created_at) as count')
+        ->get();*/
+       /*  return $register; */
+        return $teams;
+    }
 }

@@ -34,6 +34,11 @@ class PlayerController extends Controller
                     ->where('players.id_users', '=', $request->input('dni'))
                     ->get();
                     return datatables()->of($player)->toJson();
+            }else if($player === 10){
+                return response()->json([ 
+                        'status' => false,
+                        'message' => 'Ya tiene 10 jugadores inscritos, ya no puede ingresar mas'
+                ]);
             }else{
                 return response()->json([ 
                         'status' => false,

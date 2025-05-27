@@ -53,10 +53,8 @@
                                                         <div class="col-md-4 pr-1">
                                                             <div class="form-group">
                                                                 <label>Oficina</label>
-                                                                  <select name="office" id="offices" class="form-control" required>
-                                                                    <option value="0">Seleccione</option>
-                                                                    <option value="1">OSTI</option>
-                                                                </select>
+                                                                    <select name="office" id="offices" class="form-control" required>
+                                                                    </select>
                                                             </div>
                                                         </div>
                                                          <div class="col-md-4 pl-1">
