@@ -346,9 +346,15 @@ export function player(url,data,table){
                         dataTableInstance = table.DataTable({
                         data: respuesta.data,
                         columns: [
-                            { 
-                                data: 'player_photo',
-                                class: 'text-center'
+                            {
+                                data: null,
+                                render: function (data, type, row) {
+                                    return `
+                                        <div class="img-container d-flex justify-content-center">
+                                            <img src="${row.player_photo}" alt="Foto" style="max-width: 100px; max-height: 100px;">
+                                        </div>
+                                    `;
+                                }
                             },
                             { 
                                 data: 'player_dni',
@@ -374,11 +380,8 @@ export function player(url,data,table){
                                 data: null,
                                 render: function (data, type, row) {
                                     return `
-                                        <button type="button" rel="tooltip" data-placement="left" title="View Post" class="btn btn-info btn-link btn-icon">
-                                            <i class="fa fa-image"></i>
-                                        </button>
-                                        <button type="button" rel="tooltip" data-placement="left" title="Remove Post" class="btn btn-success btn-link btn-icon ">
-                                            <i class="fa fa-edit" ></i>
+                                        <button type="button" class="btn btn-info btn-link btn-icon modelPhotoPlayer" data-toggle="modal" data-target="#photoModal" data-id=`+row.player_dni+`>
+                                             <i class="fa fa-image"></i>
                                         </button>
                                         <button type="button" class="btn btn-danger btn-link btn-xs modelDeletePlayer" data-toggle="modal" data-target="#deleteModal" data-nombre="`+row.player_name+` `+row.player_lastname+`" data-id=`+row.player_dni+`>
                                             <i class="fa fa-times"></i>
@@ -431,6 +434,60 @@ export function deletePlayerTeam(url){
             }
         });
     });
+}
+export function photoPlayer(){
+    $(document).on('click', '.modelPhotoPlayer', function () {
+        $('#dniPhotoPlayer').val($(this).data('id'));
+    });
+}
+export function updatePhotoPlayer(url){
+     $(document).on('submit','#photoPlayer',function(e){
+            e.preventDefault();
+            let formData = new FormData(this); 
+            $.ajax({
+                type:'POST',
+                url:url,
+                data:formData,
+                processData: false,
+                contentType: false,
+                success:function(response){
+                    if(response.status){
+                        swal({
+                            title: "¡¡¡Excelente!!!",
+                            text: response.message,
+                            buttonsStyling: false,
+                            confirmButtonClass: "btn btn-warning btn-fill",
+                            type: "success"                       
+                        },function() {
+                                window.location.href = '/player';
+                        });
+                    }else{
+                        swal({
+                            title: "¡¡¡Upps ocurrio un Probema!!!",
+                            text: response.message,
+                            buttonsStyling: false,
+                            confirmButtonClass: "btn btn-warning btn-fill",
+                            type: "warning"                       
+                        });
+                    }
+                },
+                error: function(xhr) {
+                    if (xhr.status === 422) {
+                        const errores = xhr.responseJSON.errors;
+                         swal({
+                            title: "¡¡¡Upps ocurrio un Probema!!!",
+                            text: Object.values(errores)[0][0],
+                            buttonsStyling: false,
+                            confirmButtonClass: "btn btn-warning btn-fill",
+                            type: "warning"                       
+                        });
+                    } else {
+                        console.error('Error inesperado:', xhr);
+                    }
+                }
+            });
+     });
+  
 }
 /*FIN FUNCTIONS PLAYER */
 /*INCIO FUNCIONES DASH*/

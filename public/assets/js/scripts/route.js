@@ -14,5 +14,6 @@ const route={
     deletePlayer:`${APP_ROUTE}/deletePlayer`,
     offices:`${APP_ROUTE}/offices`,
     teamsCount:`${APP_ROUTE}/teamsCount`,
+    photo:`${APP_ROUTE}/photo`,
 };  
 export default route;

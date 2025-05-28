@@ -10,7 +10,7 @@
                 </div>
                 <div class="user">
                     <div class="photo">
-                        <img src="../assets/img/default-avatar.png" />
+                        <img src="../assets/img/face-1.jpg" />
                     </div>
                     <div class="info ">
                         <a data-toggle="collapse" href="#collapseExample" class="collapsed">

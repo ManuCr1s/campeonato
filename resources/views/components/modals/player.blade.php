@@ -73,11 +73,17 @@
                                                                 </select>
                                                             </div>
                                                         </div>
-                                                    </div>                                                 
+                                                    </div>  
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                                   
+                                                        </div>
+                                                    </div>                                               
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
+                                          
                                             <div class="card card-user">
                                                 <div class="card-header no-padding">
                                                     <div class="card-image">
@@ -86,18 +92,14 @@
                                                 </div>
                                                 <div class="card-body">
                                                     <div class="author">
-                                                        <a href="#">
-                                                            <img class="avatar border-gray" src="../../assets/img/default-avatar.png" alt="...">
-                                                            <h5 class="card-title">Tania Keatley</h5>
-                                                        </a>
-                                                        <p class="card-description">
-                                                           
-                                                        </p>
+                                                            <img class="avatar border-gray" src="../../assets/img/face-1.jpg" alt="...">
+                                                            <p class="card-description">
+                                                               
+                                                            </p>
                                                     </div>
-                                          
                                                 </div>
-                                         
                                             </div>
+                                            
                                         </div>
                                     
                             </div>

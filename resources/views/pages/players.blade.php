@@ -51,6 +51,7 @@
     </div>
 </div>
 <x-modals.delete/>
+<x-modals.photo/>
 @endsection
 @section('footer')
     <script src="{{asset('assets/js/sweetalert2.min.js')}}" type="text/javascript"></script>

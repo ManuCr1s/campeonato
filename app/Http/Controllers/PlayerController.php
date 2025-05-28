@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Player;
 use App\Models\Team;
 use App\Http\Requests\PlayerRequest;
+use Carbon\Carbon;
+use App\Http\Requests\FileRequest;
+use Illuminate\Support\Facades\Validator;
 
 class PlayerController extends Controller
 {
@@ -34,11 +37,6 @@ class PlayerController extends Controller
                     ->where('players.id_users', '=', $request->input('dni'))
                     ->get();
                     return datatables()->of($player)->toJson();
-            }else if($player === 10){
-                return response()->json([ 
-                        'status' => false,
-                        'message' => 'Ya tiene 10 jugadores inscritos, ya no puede ingresar mas'
-                ]);
             }else{
                 return response()->json([ 
                         'status' => false,
@@ -50,29 +48,35 @@ class PlayerController extends Controller
      */
     public function store(PlayerRequest $request)
     {
-       
-            try {
-                $person = Player::create([
-                    'dni' => $request->input('dni'),
-                    'name'=> $request->input('firtsname'),
-                    'lastname'=> $request->input('lastname'),
-                    'id_offices'=> $request->input('office'),
-                    'id_users'=> $request->input('user'),
-                    'born'=> $request->input('born'),
-                    'id_teams'=> $request->input('team'),
-                    'id_contracts'=> $request->input('legacy'),
+            $player =  Player::where('status',true)->where('id_users', '=', $request->input('user'))->count();
+            if($player === 10){
+                return response()->json([ 
+                        'status' => false,
+                        'message' => 'Ya tiene 10 jugadores inscritos, ya no puede ingresar mas'
                 ]);
-            } catch (\Throwable $th) { 
-                return response()->json([
-                    'status' => false,
-                    'message' => "Por favor comuniquese con el administrador"
+            }else{
+                try {
+                    $person = Player::create([
+                        'dni' => $request->input('dni'),
+                        'name'=> $request->input('firtsname'),
+                        'lastname'=> $request->input('lastname'),
+                        'id_offices'=> $request->input('office'),
+                        'id_users'=> $request->input('user'),
+                        'born'=> $request->input('born'),
+                        'id_teams'=> $request->input('team'),
+                        'id_contracts'=> $request->input('legacy'),
+                    ]);
+                } catch (\Throwable $th) { 
+                    return response()->json([
+                        'status' => false,
+                        'message' => "Por favor comuniquese con el administrador"
+                    ]);
+                }
+                return response()->json([                                                                                                                                                                          
+                    'status' => true,
+                    'message' => "Se ingresó correctamente el jugador"
                 ]);
-            }
-            return response()->json([                                                                                                                                                                          
-                'status' => true,
-                'message' => "Se ingresó correctamente el jugador"
-            ]);
-        
+            }       
      
     }
      public function dni(Request $request)
@@ -154,10 +158,45 @@ class PlayerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    private $message = [
+            'file.mimes'=>'Ingrese imagen en formato JPG,JPEG,PNG',
+            'file.max'=>'Ingrese menos de 2MB',
+    ];  
+    private $rules = [
+            'file' => 'file|mimes:jpg,jpeg,png|max:2048',
+    ];  
+    public function update(FileRequest $request)
     {
-        //
+        $validator = Validator::make($request->all(),$this->rules,$this->message);
+         if($validator->fails()) {
+            $response = $validator->errors();
+            return response()->json($response);
+        }
+        $date = Carbon::now();
+        $filepath=null;
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $filename = time().'_'.$file->getClientOriginalName();
+            $path = $file->storeAs('uploads', $filename, 'public');
+            $filepath = asset('storage/'.$path);
+        }
+        $player = Player::where('dni', $request->input('dniPhotoPlayer'))->first();
+        if($player){
+                $player->photo =  $filepath;
+                $player->save();
+                return response()->json([ 
+                        'status' => true,
+                        'message' => 'Ingreso correctamente la foto'
+                ]);
+        }else{
+                return response()->json([ 
+                        'status' => false,
+                        'message' => 'Por favor comunicquese con el administrador'
+                ]);
+        }
+       
     }
+
 
     /**
      * Remove the specified resource from storage.

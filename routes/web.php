@@ -41,4 +41,5 @@ Route::middleware('auth')->group(function(){
     Route::post('/showPlayer',[PlayerController::class,'player']);
     Route::post('/deletePlayer',[PlayerController::class,'destroy']);
     Route::get('/teamsCount',[TeamController::class,'teamCount']);
+    Route::post('/photo',[PlayerController::class,'update']);
 });
