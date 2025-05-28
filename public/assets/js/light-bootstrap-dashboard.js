@@ -1,36 +1,18 @@
-/*! =========================================================
- *
- * Light Bootstrap Dashboard PRO - V1.4.1
- *
- * =========================================================
- *
- * Copyright 2017 Creative Tim
- * Available with purchase of license from http://www.creative-tim.com/product/light-bootstrap-dashboard-pro
- *
- *                       _oo0oo_
- *                      o8888888o
- *                      88" . "88
- *                      (| -_- |)
- *                      0\  =  /0
- *                    ___/`---'\___
- *                  .' \\|     |// '.
- *                 / \\|||  :  |||// \
- *                / _||||| -:- |||||- \
- *               |   | \\\  -  /// |   |
- *               | \_|  ''\---/''  |_/ |
- *               \  .-\__  '-'  ___/-. /
- *             ___'. .'  /--.--\  `. .'___
- *          ."" '<  `.___\_<|>_/___.' >' "".
- *         | | :  `- \`.;`\ _ /`;.`/ - ` : | |
- *         \  \ `_.   \_ __\ /__ _/   .-` /  /
- *     =====`-.____`.___ \_____/___.-`___.-'=====
- *                       `=---='
- *
- *     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- *
- *               Buddha Bless:  "No Bugs"
- *
- * ========================================================= */
+/*!
+
+ =========================================================
+ * Light Bootstrap Dashboard - v2.0.1
+ =========================================================
+
+ * Product Page: http://www.creative-tim.com/product/light-bootstrap-dashboard
+ * Copyright 2019 Creative Tim (http://www.creative-tim.com)
+ * License (https://www.creative-tim.com/license)
+
+ =========================================================
+
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+ */
 
 var searchVisible = 0;
 var transparent = true;
@@ -38,6 +20,7 @@ var transparent = true;
 var transparentDemo = true;
 var fixedTop = false;
 
+var navbar_initialized = false;
 var mobile_menu_visible = 0,
     mobile_menu_initialized = false,
     toggle_initialized = false,
@@ -45,153 +28,67 @@ var mobile_menu_visible = 0,
     $sidebar,
     isWindows;
 
-(function(){
-    isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
-
-    if (isWindows && !$('body').hasClass('sidebar-mini')){
-       // if we are on windows OS we activate the perfectScrollbar function
-       $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
-
-       $('html').addClass('perfect-scrollbar-on');
-   } else {
-       $('html').addClass('perfect-scrollbar-off');
-   }
-})();
-
-$(document).ready(function(){
-
+$(document).ready(function() {
     window_width = $(window).width();
-    $sidebar = $('.sidebar');
 
     // check if there is an image set for the sidebar's background
     lbd.checkSidebarImage();
 
-    if($('body').hasClass('sidebar-mini')){
-        lbd.misc.sidebar_mini_active = true;
+    // Init navigation toggle for small screens
+    if (window_width <= 991) {
+        lbd.initRightMenu();
     }
 
-    lbd.initSidebarsCheck();
-
     lbd.initMinimizeSidebar();
-
-    $('.form-control').on("focus", function(){
-        $(this).parent('.input-group').addClass("input-group-focus");
-    }).on("blur", function(){
-        $(this).parent(".input-group").removeClass("input-group-focus");
-    });
 
     // Init Collapse Areas
     lbd.initCollapseArea();
 
-    $("[data-toggle='switch']").each(function(){
-        $this = $(this);
-        data_on_label = $this.data('on-text') || '';
-        data_off_label = $this.data('off-text') || '';
-
-        $this.bootstrapSwitch({
-            onText: data_on_label,
-            offText: data_off_label
-        });
-    });
-
-
-    // Init Tooltips
+    //  Activate the tooltips
     $('[rel="tooltip"]').tooltip();
 
     // Init Tags Input
-    if($(".tagsinput").length != 0){
-        $(".tagsinput").tagsInput();
+    // if($(".tagsinput").length != 0){
+    //     $(".tagsinput").tagsInput();
+    // }
+
+    //  Activate regular switches
+    if ($("[data-toggle='switch']").length != 0) {
+        $("[data-toggle='switch']").bootstrapSwitch();
     }
 
-    //  Init Bootstrap Select Picker
-    if($(".selectpicker").length != 0){
-        $(".selectpicker").selectpicker();
-    }
+    $('.form-control').on("focus", function() {
+        $(this).parent('.input-group').addClass("input-group-focus");
+    }).on("blur", function() {
+        $(this).parent(".input-group").removeClass("input-group-focus");
+    });
 
-    if($sidebar.length == 0 && $(window).width() <= 991 ){
-        $('body').find('.navbar-collapse').addClass('bootstrap-navbar');
-    }
 
+    // Fixes sub-nav not working as expected on IOS
+    $('body').on('touchstart.dropdown', '.dropdown-menu', function(e) {
+        e.stopPropagation();
+    });
 });
 
-$(document).on('click', '.navbar-toggle', function(){
-    $toggle = $(this);
-
-    if(lbd.misc.navbar_menu_visible == 1) {
-        $('html').removeClass('nav-open');
-        lbd.misc.navbar_menu_visible = 0;
-        setTimeout(function(){
-            $toggle.removeClass('toggled');
-            $('.close-layer').remove();
-        }, 550);
-
-    } else {
-        setTimeout(function(){
-            $toggle.addClass('toggled');
-        }, 580);
-
-        $sidebar = $('body').find('.sidebar');
-        $layer = $('<div class="close-layer"></div>');
-        main_panel_height = $sidebar.length != 0 ? $('.main-panel')[0].scrollHeight : $('.wrapper')[0].scrollHeight;
-        $layer.css('height',main_panel_height + 'px');
-        $sidebar.length != 0 ? $layer.appendTo(".main-panel") : $layer.appendTo(".wrapper");
-
-        setTimeout(function(){
-            $layer.addClass('visible');
-        }, 100);
-
-        $layer.click(function() {
-            $('html').removeClass('nav-open');
-            lbd.misc.navbar_menu_visible = 0;
-            $layer.removeClass('visible');
-
-             setTimeout(function(){
-                $layer.remove();
-                $toggle.removeClass('toggled');
-
-             }, 400);
-        });
-
-        $('html').addClass('nav-open');
-        lbd.misc.navbar_menu_visible = 1;
+// activate collapse right menu when the windows is resized
+$(window).resize(function() {
+    if ($(window).width() <= 991) {
+        lbd.initRightMenu();
     }
 });
-
-
-// activate mobile menus when the windows is resized
-$(window).resize(function(){
-    lbd.initSidebarsCheck();
-    lbd.initBootstrapNavbar();
-});
-
 
 lbd = {
-
-    misc:{
-        navbar_menu_visible: 0,
-        active_collapse: true,
-        disabled_collapse_init: 0,
-
+    misc: {
+        navbar_menu_visible: 0
     },
-
-    initBootstrapNavbar: function(){
-        if($sidebar.length == 0){
-            if($(window).width() >= 991){
-                $('body').find('.navbar-collapse').removeClass('bootstrap-navbar');
-            } else {
-                $('body').find('.navbar-collapse').addClass('bootstrap-navbar');
-            }
-        }
-    },
-
-    checkSidebarImage: function(){
+    checkSidebarImage: function() {
         $sidebar = $('.sidebar');
         image_src = $sidebar.data('image');
 
-        if(image_src !== undefined){
+        if (image_src !== undefined) {
             sidebar_container = '<div class="sidebar-background" style="background-image: url(' + image_src + ') "/>'
             $sidebar.append(sidebar_container);
-        } else if(mobile_menu_initialized == true){
+        } else if (mobile_menu_initialized == true) {
             // reset all the additions that we made for the sidebar wrapper only if the screen is bigger than 991px
             $sidebar_wrapper.find('.navbar-form').remove();
             $sidebar_wrapper.find('.nav-mobile-menu').remove();
@@ -200,77 +97,36 @@ lbd = {
         }
     },
 
-    initSidebarsCheck: function(){
-        if($(window).width() <= 991){
-            if($sidebar.length != 0){
-                lbd.initSidebarMenu();
-            }
-        }
-    },
-
-    initMinimizeSidebar: function(){
-
-        // when we are on a Desktop Screen and the collapse is triggered we check if the sidebar mini is active or not. If it is active then we don't let the collapse to show the elements because the elements from the collapse are showing on the hover state over the icons in sidebar mini, not on the click.
-
-        $('#minimizeSidebar').click(function(){
-            var $btn = $(this);
-
-            if(lbd.misc.sidebar_mini_active == true){
-                $('body').removeClass('sidebar-mini');
-                lbd.misc.sidebar_mini_active = false;
-            }else{
-                setTimeout(function(){
-                    $('body').addClass('sidebar-mini');
-                    lbd.misc.sidebar_mini_active = true;
-                },300);
-            }
-
-            // we simulate the window Resize so the charts will get updated in realtime.
-            var simulateWindowResize = setInterval(function(){
-                window.dispatchEvent(new Event('resize'));
-            },180);
-
-            // we stop the simulation of Window Resize after the animations are completed
-            setTimeout(function(){
-                clearInterval(simulateWindowResize);
-            },1000);
-        });
-    },
-
-
-    checkFullPageBackgroundImage: function(){
-        $page = $('.full-page');
-        image_src = $page.data('image');
-
-        if(image_src !== undefined){
-            image_container = '<div class="full-page-background" style="background-image: url(' + image_src + ') "/>'
-            $page.append(image_container);
-        }
-    },
-
-    initSidebarMenu: debounce(function(){
+    initRightMenu: function() {
         $sidebar_wrapper = $('.sidebar-wrapper');
 
-        if(!mobile_menu_initialized){
-            $navbar = $('nav').find('.navbar-collapse');
-            nav_content = '';
+        //console.log('aici se face meniu in dreapta');
 
-            $navbar.children('ul').each(function(){
+        if (!mobile_menu_initialized) {
+
+            $navbar = $('nav').find('.navbar-collapse').first().clone(true);
+
+            nav_content = '';
+            mobile_menu_content = '';
+
+            //add the content from the regular header to the mobile menu
+            //pas = 1;
+            $navbar.children('ul').each(function() {
 
                 content_buff = $(this).html();
                 nav_content = nav_content + content_buff;
+                //console.log('pas:' + pas);
+
+                //pas = pas+1;
             });
 
             nav_content = '<ul class="nav nav-mobile-menu">' + nav_content + '</ul>';
-
-            $navbar_form = $('nav').find('.navbar-form').clone(true);
 
             $sidebar_nav = $sidebar_wrapper.find(' > .nav');
 
             // insert the navbar form before the sidebar list
             $nav_content = $(nav_content);
             $nav_content.insertBefore($sidebar_nav);
-            $navbar_form.insertBefore($nav_content);
 
             $(".sidebar-wrapper .dropdown .dropdown-menu > li > a").click(function(event) {
                 event.stopPropagation();
@@ -280,67 +136,170 @@ lbd = {
             mobile_menu_initialized = true;
         } else {
             console.log('window with:' + $(window).width());
-            if($(window).width() > 991){
+            if ($(window).width() > 991) {
                 // reset all the additions that we made for the sidebar wrapper only if the screen is bigger than 991px
                 $sidebar_wrapper.find('.navbar-form').remove();
                 $sidebar_wrapper.find('.nav-mobile-menu').remove();
 
-                console.log(lbd.misc.sidebar_mini_active);
-
-                // if(lbd.misc.sidebar_mini_active == true){
-                //     $('body').addClass('sidebar-mini');
-                // }
-
                 mobile_menu_initialized = false;
             }
         }
-    }, 500),
 
-    initCollapseArea: function(){
-        $('[data-toggle="collapse-hover"]').each(function () {
-            var thisdiv = $(this).attr("data-target");
-            $(thisdiv).addClass("collapse-hover");
-        });
+        if (!toggle_initialized) {
+            $toggle = $('.navbar-toggler');
 
-        $('[data-toggle="collapse-hover"]').hover(function(){
-            var thisdiv = $(this).attr("data-target");
-            if(!$(this).hasClass('state-open')){
-                $(this).addClass('state-hover');
-                $(thisdiv).css({
-                    'height':'30px'
-                });
-            }
+            $toggle.click(function() {
 
-        },
-        function(){
-            var thisdiv = $(this).attr("data-target");
-            $(this).removeClass('state-hover');
+                if (mobile_menu_visible == 1) {
+                    $('html').removeClass('nav-open');
 
-            if(!$(this).hasClass('state-open')){
-                $(thisdiv).css({
-                    'height':'0px'
-                });
-            }
-        }).click(function(event){
-                event.preventDefault();
+                    $('.close-layer').remove();
+                    setTimeout(function() {
+                        $toggle.removeClass('toggled');
+                    }, 400);
 
-                var thisdiv = $(this).attr("data-target");
-                var height = $(thisdiv).children('.panel-body').height();
-
-                if($(this).hasClass('state-open')){
-                    $(thisdiv).css({
-                        'height':'0px',
-                    });
-                    $(this).removeClass('state-open');
+                    mobile_menu_visible = 0;
                 } else {
-                    $(thisdiv).css({
-                        'height':height + 30,
+                    setTimeout(function() {
+                        $toggle.addClass('toggled');
+                    }, 430);
+
+
+                    main_panel_height = $('.main-panel')[0].scrollHeight;
+                    $layer = $('<div class="close-layer"></div>');
+                    $layer.css('height', main_panel_height + 'px');
+                    $layer.appendTo(".main-panel");
+
+                    setTimeout(function() {
+                        $layer.addClass('visible');
+                    }, 100);
+
+                    $layer.click(function() {
+                        $('html').removeClass('nav-open');
+                        mobile_menu_visible = 0;
+
+                        $layer.removeClass('visible');
+
+                        setTimeout(function() {
+                            $layer.remove();
+                            $toggle.removeClass('toggled');
+
+                        }, 400);
                     });
-                    $(this).addClass('state-open');
+
+                    $('html').addClass('nav-open');
+                    mobile_menu_visible = 1;
+
                 }
             });
+
+            toggle_initialized = true;
+        }
+    },
+
+    initMinimizeSidebar: function() {
+
+        // when we are on a Desktop Screen and the collapse is triggered we check if the sidebar mini is active or not. If it is active then we don't let the collapse to show the elements because the elements from the collapse are showing on the hover state over the icons in sidebar mini, not on the click.
+        $('.sidebar .collapse').on('in.bs.collapse', function() {
+            if ($(window).width() > 991) {
+                if (lbd.misc.sidebar_mini_active == true) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        });
+
+        $('#minimizeSidebar').click(function() {
+            var $btn = $(this);
+
+            if (lbd.misc.sidebar_mini_active == true) {
+                $('body').removeClass('sidebar-mini');
+                lbd.misc.sidebar_mini_active = false;
+
+                if (isWindows) {
+                    $('.sidebar .sidebar-wrapper').perfectScrollbar();
+                }
+
+            } else {
+
+                $('.sidebar .collapse').collapse('hide').on('hidden.bs.collapse', function() {
+                    $(this).css('height', 'auto');
+                });
+
+                if (isWindows) {
+                    $('.sidebar .sidebar-wrapper').perfectScrollbar('destroy');
+                }
+
+                setTimeout(function() {
+                    $('body').addClass('sidebar-mini');
+
+                    $('.sidebar .collapse').css('height', 'auto');
+                    lbd.misc.sidebar_mini_active = true;
+                }, 300);
+            }
+
+            // we simulate the window Resize so the charts will get updated in realtime.
+            var simulateWindowResize = setInterval(function() {
+                window.dispatchEvent(new Event('resize'));
+            }, 180);
+
+            // we stop the simulation of Window Resize after the animations are completed
+            setTimeout(function() {
+                clearInterval(simulateWindowResize);
+            }, 1000);
+        });
+    },
+
+    initCollapseArea: function() {
+        $('[data-toggle]').each(function() {
+            var thisdiv = $(this).hasClass('card-collapse');
+            $(thisdiv).addClass('collapse-preview');
+        });
+
+        $('[data-toggle="collapse-hover"]').hover(function() {
+                var thisdiv = $(this).attr("data-target");
+                if (!$(this).hasClass('state-open')) {
+                    $(this).addClass('state-hover');
+                    $(thisdiv).css({
+                        'height': '30px',
+                        'display': 'block',
+                        'overflow': 'hidden'
+                    });
+                }
+
+            },
+            function() {
+                var thisdiv = $(this).attr("data-target");
+                $(this).removeClass('state-hover');
+
+                if (!$(this).hasClass('state-open')) {
+                    $(thisdiv).css({
+                        'height': '0px'
+                    });
+                }
+            }).click(function(event) {
+            event.preventDefault();
+
+            var thisdiv = $(this).attr("data-target");
+            var height = $(thisdiv).children('.card-body').height();
+
+            if ($(this).hasClass('state-open')) {
+                $(thisdiv).css({
+                    'height': '0px',
+
+                });
+                $(this).removeClass('state-open');
+            } else {
+                $(thisdiv).css({
+                    'height': height + 30,
+                });
+                $(this).addClass('state-open');
+            }
+        });
     }
 }
+
 
 
 // Returns a function, that, as long as it continues to be invoked, will not
@@ -349,14 +308,15 @@ lbd = {
 // leading edge, instead of the trailing.
 
 function debounce(func, wait, immediate) {
-	var timeout;
-	return function() {
-		var context = this, args = arguments;
-		clearTimeout(timeout);
-		timeout = setTimeout(function() {
-			timeout = null;
-			if (!immediate) func.apply(context, args);
-		}, wait);
-		if (immediate && !timeout) func.apply(context, args);
-	};
+    var timeout;
+    return function() {
+        var context = this,
+            args = arguments;
+        clearTimeout(timeout);
+        timeout = setTimeout(function() {
+            timeout = null;
+            if (!immediate) func.apply(context, args);
+        }, wait);
+        if (immediate && !timeout) func.apply(context, args);
+    };
 };
