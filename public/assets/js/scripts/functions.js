@@ -443,6 +443,7 @@ export function photoPlayer(){
 export function updatePhotoPlayer(url){
      $(document).on('submit','#photoPlayer',function(e){
             e.preventDefault();
+            $("#preloader").show(); 
             let formData = new FormData(this); 
             $.ajax({
                 type:'POST',
@@ -451,6 +452,7 @@ export function updatePhotoPlayer(url){
                 processData: false,
                 contentType: false,
                 success:function(response){
+                    $("#preloader").hide(); 
                     if(response.status){
                         swal({
                             title: "¡¡¡Excelente!!!",
@@ -472,6 +474,7 @@ export function updatePhotoPlayer(url){
                     }
                 },
                 error: function(xhr) {
+                    $("#preloader").hide(); 
                     if (xhr.status === 422) {
                         const errores = xhr.responseJSON.errors;
                          swal({

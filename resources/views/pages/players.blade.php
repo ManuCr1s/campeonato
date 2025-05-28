@@ -3,6 +3,9 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @section('container')
+        <div id="preloader" class="preloader">
+            <img src="{{asset('assets/img/preloader.gif')}}" alt="">
+        </div>
 <div class="wrapper">
     <x-navs.main/>
     <div class="main-panel">

@@ -43,6 +43,8 @@
 @section('footer')
     <script type="text/javascript">
         $().ready(function(){
+            
+      $("#preloader").hide(); 
            // lbd.checkFullPageBackgroundImage();
             setTimeout(function(){
                 // after 1000 ms we add the class animated to the login/register card
