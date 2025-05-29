@@ -9,6 +9,7 @@ use App\Http\Requests\PlayerRequest;
 use Carbon\Carbon;
 use App\Http\Requests\FileRequest;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class PlayerController extends Controller
 {
@@ -24,6 +25,26 @@ class PlayerController extends Controller
     /**
      * Show the form for creating a new resource.
      */
+    public function playersTeams(){
+            $player = DB::table('players as pl')
+            ->join('teams as te', 'te.id', '=', 'pl.id_teams')
+            ->join('offices as of', 'of.id', '=', 'pl.id_offices')
+            ->join('contracts as ct', 'ct.id', '=', 'pl.id_contracts')
+            ->where('pl.status', true)
+            ->orderBy('te.name', 'asc')
+            ->select([
+                'pl.dni as dni',
+                'pl.name as name',
+                'pl.lastname as lastname',
+                DB::raw("DATE_FORMAT(pl.born, '%d/%m/%Y') as born"),
+                'pl.id_users as delegate',
+                'te.name as teams',
+                'of.name as offices',
+                'ct.name as contracts'
+            ])
+            ->get();
+            return datatables()->of($player)->toJson();
+    }
     public function create()
     {
         //

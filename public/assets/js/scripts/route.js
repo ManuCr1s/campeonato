@@ -15,5 +15,6 @@ const route={
     offices:`${APP_ROUTE}/offices`,
     teamsCount:`${APP_ROUTE}/teamsCount`,
     photo:`${APP_ROUTE}/photo`,
+    playerTeams:`${APP_ROUTE}/playerTeams`,
 };  
 export default route;

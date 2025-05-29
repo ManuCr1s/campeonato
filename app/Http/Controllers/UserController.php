@@ -20,6 +20,10 @@ class UserController extends Controller
     {
         return view('pages.login');
     }
+    public function admin()
+    {
+        return view('pages.admin');
+    }
     public function main()
     {
         return view('pages.dashboard');
