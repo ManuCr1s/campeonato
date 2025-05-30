@@ -20,7 +20,7 @@ use App\Http\Controllers\OfficeController;
 Route::controller(UserController::class)->group(function(){
     Route::get('/','index')->name('user.login');
     Route::get('/login','index')->name('user.login');
-    Route::get('/register','register')->name('user.register');
+    Route::get('/old','register')->name('user.old');
     Route::post('/dni','dni')->name('user.dni');
     Route::post('/send','store')->name('user.send');
     Route::post('/auth','auth')->name('user.auth');
