@@ -20,13 +20,6 @@
                                             <label>Contraseña</label>
                                             <input type="password" placeholder="Ingrese Contraseña" class="form-control" name="pass">
                                         </div>
-                                        <div class="form-group">
-                                            <div class="form-check">
-                                                <label class="form-check-label">
-                                                    <a href="#" target="_blank" rel="noopener noreferrer" class="text-warning"><b>OLVIDO SU CONTRASEÑA</b></a>                                               
-                                                </label>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="card-footer ml-auto mr-auto">
