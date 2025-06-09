@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Team;
+use Illuminate\Support\Facades\DB;
 
 class TeamController extends Controller
 {
@@ -112,5 +113,19 @@ class TeamController extends Controller
         ->get();*/
        /*  return $register; */
         return $teams;
+    }
+    public function teamRegister(){
+            $teams = DB::table('users as us')
+            ->join('teams as te', 'te.id_users', '=', 'us.dni')
+            ->join('offices as of', 'of.id', '=', 'us.id_office')
+            ->orderBy('te.name', 'asc')
+            ->select([
+                'te.id as id',
+                'te.name as name',
+                 DB::raw("CONCAT(us.name,' ',us.lastname) as delegate"),
+                'of.name as office'
+            ])
+            ->get();
+            return datatables()->of($teams)->toJson();
     }
 }

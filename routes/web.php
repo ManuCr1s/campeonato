@@ -42,10 +42,12 @@ Route::middleware(['auth','role:Delegate'])->group(function(){
     Route::post('/sendPlayer',[PlayerController::class,'store']);
     Route::post('/showPlayer',[PlayerController::class,'player']);
     Route::post('/deletePlayer',[PlayerController::class,'destroy']);
-    Route::post('/playerTeams',[PlayerController::class,'playersTeams']);
+
 });
 
 Route::middleware(['auth','role:Admin'])->group(function(){
     Route::get('/admin2025',[UserController::class,'admin'])->name('user.admin');
     Route::get('/register',[UserController::class,'register'])->name('user.register'); 
+    Route::post('/teamRegister',[TeamController::class,'teamRegister']); 
+    Route::post('/playerTeams',[PlayerController::class,'playersTeams']);
 });

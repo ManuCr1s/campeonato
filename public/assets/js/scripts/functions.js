@@ -614,4 +614,54 @@ export function playerTeams(url,table){
         }
     });
 }
+export function teamsRegister(url,table){
+     $.ajax({
+        headers:{'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')},
+        type:'POST',
+        url:url,
+        success: function(respuesta) {
+                let dataTableInstance;
+                 if(!('status' in respuesta)){
+                      if ($.fn.DataTable.isDataTable(table)) {
+                        table.DataTable().clear().destroy();
+                    }
+                        dataTableInstance = table.DataTable({
+                        data: respuesta.data,
+                        "dom": 'Bftip',
+                         "buttons": [
+                                {
+                                    extend: 'excel',
+                                    text: 'Descargar Excel',
+                                    className:'btn btn-success'
+                                },
+                                {
+                                    extend: 'pdf',
+                                    text: 'Descargar PDF',
+                                    className:'btn btn-danger'
+                                }
+                            ],
+                        columns: [
+                            { 
+                                data: 'id',
+                                class: 'text-center'
+                            },
+                            { 
+                                data: 'name',
+                                class: 'text-center'
+                            },
+                            { 
+                                data: 'delegate',
+                                class: 'text-center'
+                            },
+                            { 
+                                data: 'office',
+                                class: 'text-center'
+                            },
+                        ]
+                    });
+                    return dataTableInstance;
+                }
+        }
+    });
+}
 /*FIN ADMIN*/

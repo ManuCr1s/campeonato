@@ -10,12 +10,35 @@
 
         <div class="main-content">
             <div class="container-fluid">
+            <div class="row">
+                            <div class="col-md-12 mt-5">
+                                <div class="card ">
+                                    <div class="card-header ">
+                                        <h4 class="card-title">Total de Equipos</h4>
+                                        <p class="card-category">Cantidad de Equipos Registrados</p>
+                                        <table class="table table-bigboy" id="tableTeamFinal">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center">Id</th>
+                                                        <th class="test-center">Nombre</th>
+                                                        <th class="th-description">Delegado</th>
+                                                        <th class="text-center">Oficina </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                
+                                                </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>                           
+                </div>
                 <div class="row">
                             <div class="col-md-12 mt-5">
                                 <div class="card ">
                                     <div class="card-header ">
-                                        <h4 class="card-title">Total de Jugadores y Equipos</h4>
-                                        <p class="card-category">Cantidad de Equipos Registrados</p>
+                                        <h4 class="card-title">Total de Jugadores</h4>
+                                        <p class="card-category">Cantidad de Jugadores Registrados</p>
                                         <table class="table table-bigboy" id="tablePlayerTeam">
                                                 <thead>
                                                     <tr>
