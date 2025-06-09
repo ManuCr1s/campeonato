@@ -16,7 +16,6 @@ use App\Http\Controllers\OfficeController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
 Route::controller(UserController::class)->group(function(){
     Route::get('/','index')->name('user.login');
     Route::get('/login','index')->name('user.login');
@@ -27,8 +26,11 @@ Route::controller(UserController::class)->group(function(){
     Route::post('/offices',[OfficeController::class,'show']);
 });
 
-Route::middleware('auth')->group(function(){
+Route::middleware(['auth','role:Admin|Delegate'])->group(function(){
     Route::get('/dashboard',[UserController::class,'main'])->name('user.dashboard');
+    Route::get('/teamsCount',[TeamController::class,'teamCount']);
+});
+Route::middleware(['auth','role:Delegate'])->group(function(){
     Route::get('/player',[UserController::class,'player'])->name('user.player');
     Route::get('/teams',[UserController::class,'team'])->name('user.team');
     Route::post('/loguot',[UserController::class,'destroy'])->name('user.logout');
@@ -40,7 +42,10 @@ Route::middleware('auth')->group(function(){
     Route::post('/sendPlayer',[PlayerController::class,'store']);
     Route::post('/showPlayer',[PlayerController::class,'player']);
     Route::post('/deletePlayer',[PlayerController::class,'destroy']);
-    Route::get('/teamsCount',[TeamController::class,'teamCount']);
-    Route::get('/admin2025',[UserController::class,'admin'])->name('user.admin');
     Route::post('/playerTeams',[PlayerController::class,'playersTeams']);
+});
+
+Route::middleware(['auth','role:Admin'])->group(function(){
+    Route::get('/admin2025',[UserController::class,'admin'])->name('user.admin');
+    Route::get('/register',[UserController::class,'register'])->name('user.register'); 
 });

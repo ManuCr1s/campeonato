@@ -32,8 +32,9 @@ class UserSeeder extends Seeder
             'id_office' => 34,
             'password' =>  Hash::make('73143090'),
         ]);
+        $role = Role::firstOrCreate(['name' => 'Admin']);
         //$role = Role::create(['name'=>'Delegate']); 
-        $delegateUser->assignRole('Delegate');
+        $delegateUser->assignRole($role);
        // $permissionsAdmin = Permission::query()->pluck('name');
       //  $role->syncPermissions($permissionsAdmin);
     }

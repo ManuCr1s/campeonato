@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 
 class UserController extends Controller
@@ -84,11 +86,15 @@ class UserController extends Controller
                 'id_office'=> $request->input('offices'),
                 'password' => Hash::make($request->input('password')),
             ]);
+            $role = Role::firstOrCreate(['name' => 'Delegate']);
+            $person->assignRole($role);
         } catch (\Throwable $th) {
+            /*
             return response()->json([
                 'status' => false,
                 'message' => "Por favor comuniquese con el administrador"
-            ]);
+            ]);*/
+            return $th;
         }
         return response()->json([
             'status' => true,

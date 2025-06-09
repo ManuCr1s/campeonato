@@ -50,6 +50,28 @@
                             <p>Inicio</p>
                         </a>
                     </li>
+                    @if(auth()->user()->hasRole('Admin'))
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#teams">
+                            <i class="nc-icon nc-app"></i>
+                            <p>
+                                Estadisticas
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse " id="teams">
+                            <ul class="nav">
+                                <li class="nav-item ">
+                                    <a class="nav-link" href="{{route('user.admin')}}">
+                                        <span class="sidebar-mini">E</span>
+                                        <span class="sidebar-normal">Equipos</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    @endif
+                    @if(auth()->user()->hasRole('Delegate'))
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#teams">
                             <i class="nc-icon nc-app"></i>
@@ -69,6 +91,8 @@
                             </ul>
                         </div>
                     </li>
+                    @endif
+                    @if(auth()->user()->hasRole('Delegate'))
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#players">
                             <i class="nc-icon nc-notes"></i>
@@ -88,6 +112,7 @@
                             </ul>
                         </div>
                     </li>
+                    @endif
                 </ul>
             </div>
         </div>
