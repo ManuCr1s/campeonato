@@ -29,11 +29,11 @@ Route::controller(UserController::class)->group(function(){
 Route::middleware(['auth','role:Admin|Delegate'])->group(function(){
     Route::get('/dashboard',[UserController::class,'main'])->name('user.dashboard');
     Route::get('/teamsCount',[TeamController::class,'teamCount']);
+    Route::post('/loguot',[UserController::class,'destroy'])->name('user.logout');
 });
 Route::middleware(['auth','role:Delegate'])->group(function(){
     Route::get('/player',[UserController::class,'player'])->name('user.player');
     Route::get('/teams',[UserController::class,'team'])->name('user.team');
-    Route::post('/loguot',[UserController::class,'destroy'])->name('user.logout');
     Route::post('/team',[TeamController::class,'store'])->name('team.show');
     Route::post('/teams',[TeamController::class,'create']);
     Route::post('/editTeam',[TeamController::class,'update']);
