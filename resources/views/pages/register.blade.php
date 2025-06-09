@@ -60,7 +60,7 @@
                                             </div>
                                             <div class="footer text-center">
                                                 <button type="submit" class="btn btn-fill btn-neutral btn-wd">Crear Cuenta Delegado</button>
-                                                <a href="{{route('user.login')}}" target="_blank" rel="noopener noreferrer" class="btn btn-fill btn-secondary btn-wd">Volver a Login Delegado</a>
+                                                <a href="{{route('user.dashboard')}}" target="_blank" rel="noopener noreferrer" class="btn btn-fill btn-secondary btn-wd">Volver al Dashboard</a>
                                             </div>
                                         </div>
                                     </form>

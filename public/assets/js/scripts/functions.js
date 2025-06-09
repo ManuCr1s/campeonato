@@ -64,7 +64,7 @@ export function register(data,url){
                         type: "success"                       
                         },function() {
                             // Esta función se ejecuta cuando el usuario hace clic en el botón
-                            window.location.href = '/login';
+                            window.location.reload();
                       });
                 }else{
                     swal({

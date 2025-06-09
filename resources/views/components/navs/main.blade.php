@@ -67,6 +67,12 @@
                                         <span class="sidebar-normal">Equipos</span>
                                     </a>
                                 </li>
+                                 <li class="nav-item ">
+                                    <a class="nav-link" href="{{route('user.register')}}">
+                                        <span class="sidebar-mini">D</span>
+                                        <span class="sidebar-normal">Delegados</span>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </li>
