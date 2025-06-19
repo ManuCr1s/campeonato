@@ -70,8 +70,9 @@
                                                                     <option value="0">Seleccione</option>
                                                                     <option value="1">CAS</option>
                                                                     <option value="2">LOCACION</option>
-                                                                    <option value="2">NOMBRADO</option>
-                                                                    <option value="2">FUNCIONARIO</option>
+                                                                    <option value="3">NOMBRADO</option>
+                                                                    <option value="4">FUNCIONARIO</option>
+                                                                    <option value="5">PRACTICANTE</option>
                                                                 </select>
                                                             </div>
                                                         </div>
