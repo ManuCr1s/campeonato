@@ -28,22 +28,24 @@
                                     <x-modals.player/>
                                 </div>
                                 <div class="card-body table-full-width">
-                                    <table class="table table-bigboy" id="tablePlayer">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center">Foto</th>
-                                                <th class="text-center">Dni</th>
-                                                <th class="test-center">Nombres</th>
-                                                <th class="th-description">Apellidos</th>
-                                                <th class="text-right">Fecha Nacimiento</th>
-                                                <th class="text-right">Contrato</th>
-                                                <th>Acciones</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                         
-                                        </tbody>
-                                    </table>
+                                    <div class="table-responsive">
+                                        <table class="table table-bigboy" id="tablePlayer">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">Foto</th>
+                                                    <th class="text-center">Dni</th>
+                                                    <th class="test-center">Nombres</th>
+                                                    <th class="th-description">Apellidos</th>
+                                                    <th class="text-right">Fecha Nacimiento</th>
+                                                    <th class="text-right">Contrato</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>

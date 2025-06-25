@@ -51,20 +51,22 @@
                                     <p class="card-category">Puede editar el nombre de su equipo si ya lo registro</p>
                                 </div>
                                 <div class="card-body table-full-width">
-                                    <table class="table" id="tableTeam">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center">#</th>
-                                                <th class="text-center">Nombre de equipo</th>
-                                                <th class="text-center">Gerencia</th>
-                                                <th class="text-center">Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                    
-                                         
-                                        </tbody>
-                                    </table>
+                                    <div class="table-responsive">
+                                        <table class="table" id="tableTeam">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">#</th>
+                                                    <th class="text-center">Nombre de equipo</th>
+                                                    <th class="text-center">Gerencia</th>
+                                                    <th class="text-center">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                        
+                                            
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>                     
