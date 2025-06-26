@@ -70,7 +70,7 @@ class PlayerController extends Controller
     public function store(PlayerRequest $request)
     {
             $player =  Player::where('status',true)->where('id_users', '=', $request->input('user'))->count();
-            if($player === 12){
+            if($player === 13){
                 return response()->json([ 
                         'status' => false,
                         'message' => 'Ya tiene 10 jugadores inscritos, ya no puede ingresar mas'
